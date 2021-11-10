@@ -2,7 +2,7 @@
 #dist
 from itertools import chain, combinations
 
-#          # w,  x,  y,  z
+          # w,  x,  y,  z
 #weights = [[0, 10, 20, 30], #w
 #           [10, 0, 10, 20], #x
 #           [20, 10, 0, 10], #y
@@ -11,13 +11,13 @@ from itertools import chain, combinations
 #names = {'w': 0, 'x': 1, 'y': 2, 'z': 3}
 
 #A0 = {'w', 'x', 'y', 'z'}
-#A1 = {'w'}
+##A1 = {'w'}
 #A2 = set()
 
           # x,  y,  z
-weights = [[0, 5, 5], #x
-           [1, 0, 5], #y
-           [5, 5, 0]] #z
+weights = [[0, 100, 10], #x
+           [10, 0, 10], #y
+           [10, 10, 0]] #z
 
 names = {'x': 0, 'y': 1, 'z': 2}
 
@@ -79,6 +79,7 @@ class Oracle:
             w = self.p1[u]
         return weights[names[w]][names[u]]+weights[names[w]][names[v]]
 
+#A1 = {'w', 'y'}
 #test = Oracle(A0, A1, A2)
 #test.prepro()
 #print(test.dist2('y', 'x'))
@@ -90,9 +91,12 @@ def powerset(iterable):
     return chain.from_iterable(combinations(s, r) for r in range(1, len(s)+1))
 
 def alldist():
+    avg = []
     for A in powerset(A0):
         do = Oracle(A0, set(A), A2)
         do.prepro()
+        avg.append(do.dist2('x', 'y'))
         print(set(A), ' -> ', do.dist2('x', 'y'))
+    print('expected distance: ', sum(avg)/len(avg))
 
 alldist()
