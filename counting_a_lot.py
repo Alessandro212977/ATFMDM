@@ -5,7 +5,7 @@ random.seed(0)
 
 n = 10 #number of distinct elements in the universe
 m = 15 #number of elements in the stream
-stream = [2, 1, 2, 2, 3, 1, 2, 1, 2, 1, 1, 3, 1, 2 , 2, 1, 1, 1, 1, 1]#[random.randint(0,n) for i in range(m)]
+stream = [2, 1, 2, 2, 3, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 3, 1, 1, 1, 1]#[random.randint(0,n) for i in range(m)]
 
 class bin:
 
@@ -24,7 +24,7 @@ bins = [bin(i) for i in range(k)]
 history = {b.bin_no: [b.element] for b in bins}
 
 def countalot(stream):
-    for a in stream:
+    for j, a in enumerate(stream):
         #print('Processing elem:', a, ' Currrent bins:', bins)
         for b in bins:
             if b.element == a:
@@ -42,7 +42,7 @@ def countalot(stream):
             min_obj.element = a
             min_obj.counter += 1
             history[min_obj.bin_no].append(min_obj.element)
-        print([b.element for b in bins])
+        print("i:", j, "a:", a, [(b.bin_no, b.element, b.counter) for b in bins])
 
 def output(i):
     for b in bins:
